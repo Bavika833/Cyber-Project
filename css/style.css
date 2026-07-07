@@ -297,9 +297,31 @@ html[data-theme="light"] .hero .glow { opacity: 0.5; }
   display: flex; flex-direction: column; align-items: center;
   padding: 18px 0; gap: 8px;
   position: sticky; top: 0; height: 100vh;
-  transition: width 0.25s ease;
+  transition: width 0.52s ease;
   overflow: hidden;
 }
+
+/* added to expand the sidebar */
+
+.ribbon:hover,
+.ribbon.expanded {
+    width: 240px;
+    align-items: stretch;
+}
+
+.ribbon:hover .rib-item,
+.ribbon.expanded .rib-item {
+    width: auto;
+    margin: 0 12px;
+    padding: 0 14px;
+    justify-content: flex-start;
+}
+
+.ribbon:hover .label,
+.ribbon.expanded .label {
+    display: inline;
+}
+
 .ribbon.expanded { width: 240px; align-items: stretch; }
 .ribbon .rib-logo {
   color: var(--accent); display: grid; place-items: center; height: 46px; margin-bottom: 8px;

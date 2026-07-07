@@ -24,12 +24,6 @@ function toggleDrawer(open) {
   else d.classList.toggle("open", open);
 }
 
-/* ---- Ribbon expand/collapse ---- */
-function toggleRibbon() {
-  const r = document.getElementById("ribbon");
-  if (r) r.classList.toggle("expanded");
-}
-
 /* ---- SVG icon library (inline, no deps) ---- */
 const ICONS = {
   logo: '<svg fill="#000000" width="800px" height="800px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"/></svg>',
@@ -82,7 +76,7 @@ function renderRibbon(active) {
     )
     .join("");
   return `
-    <button class="rib-item" onclick="toggleRibbon()" title="Menu" style="margin-bottom:6px">${icon("menu")}<span class="label">Collapse</span></button>
+    <button class="rib-item" onclick="toggleRibbon()" title="Menu" style="margin-bottom:6px">${icon("menu")}<span class="label">Menu</span></button>
     <a class="rib-logo" href="index.html" title="Home">${icon("logo")}</a>
     ${links}
     <div class="rib-spacer"></div>
