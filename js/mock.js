@@ -23,7 +23,7 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
 /* Build one analysis report for a given URL */
 function generateReport(url) {
   let host = url;
-  try { host = new URL(url.includes("://") ? url : "https://" + url).hostname; } catch (e) {}
+  try { host = new URL(url.includes("://") ? url : "https://" + url).hostname; } catch (e) { }
 
   const isSafe = SAFE_DOMAINS.some((d) => host.includes(d));
   const legitimacy = isSafe ? rand(88, 99) : rand(6, 44);
@@ -45,14 +45,17 @@ function generateReport(url) {
     riskScore: 100 - legitimacy,
     detected,
     intel: {
-      registrar: pick(["NameCheap Inc", "GoDaddy LLC", "Porkbun", "Tucows", "Google Domains"]),
-      created: `${rand(1, 60)} days ago`,
-      country: pick(["RU", "CN", "US", "NL", "PA", "SC"]),
-      ssl: isSafe ? "Valid (Let's Encrypt)" : pick(["Self-signed", "Expired", "None"]),
+      domain: pick(["NameCheap Inc", "GoDaddy LLC", "Porkbun", "Tucows", "Google Domains"]),
+      age: `${rand(1, 60)} days`,
+      confidence: `${rand(90, 99)}%`,
       ip: `${rand(11, 220)}.${rand(0, 255)}.${rand(0, 255)}.${rand(1, 254)}`,
-      asn: `AS${rand(10000, 65000)}`,
-      blacklists: isSafe ? 0 : rand(3, 9),
-      reputation: isSafe ? "Trusted" : "Poor",
+      threat: isSafe ? 0 : rand(3, 9),
+      expiration: `${rand(30, 365)} days`,
+
+      reputation: isSafe ? "Safe" : "Unsafe",
+      brandSimilarity: isSafe ? "No" : "Yes",
+      fakeCharacters: isSafe ? "Not Detected" : "Detected",
+      urlShortener: isSafe ? "No" : "Yes",
     },
     sandbox: {
       requests: rand(12, 140),
@@ -96,7 +99,7 @@ function generateDashboard() {
 
 /* Persist last report so report.html can read it after a scan */
 function saveLastReport(report) {
-  try { sessionStorage.setItem("sw-last-report", JSON.stringify(report)); } catch (e) {}
+  try { sessionStorage.setItem("sw-last-report", JSON.stringify(report)); } catch (e) { }
 }
 function loadLastReport() {
   try {

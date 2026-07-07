@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="bg-background">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,9 +9,11 @@
   <meta name="theme-color" content="#0a0b0a" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body data-page="report">
   <div class="app">
     <aside class="ribbon" id="ribbon"></aside>
@@ -19,8 +22,10 @@
         <h1>Analysis Report</h1>
         <div class="actions">
           <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme" data-icon="theme"></button>
-          <button class="btn btn-sm" id="flag-btn" onclick="flagIt()"><span data-icon="flag" style="width:16px;height:16px;display:inline-flex"></span> Flag</button>
-          <button class="btn btn-primary btn-sm" onclick="window.print()"><span data-icon="download" style="width:16px;height:16px;display:inline-flex"></span> Generate PDF</button>
+          <button class="btn btn-sm" id="flag-btn" onclick="flagIt()"><span data-icon="flag"
+              style="width:16px;height:16px;display:inline-flex"></span> Flag</button>
+          <button class="btn btn-primary btn-sm" onclick="window.print()"><span data-icon="download"
+              style="width:16px;height:16px;display:inline-flex"></span> Generate PDF</button>
         </div>
       </div>
 
@@ -35,10 +40,26 @@
             <span class="badge" id="r-verdict" style="font-size:0.9rem;padding:8px 16px">—</span>
           </div>
           <div style="padding:22px" class="grid grid-4">
-            <div><div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Full URL</div><div id="r-url" style="word-break:break-all">—</div></div>
-            <div><div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Scanned</div><div id="r-time">—</div></div>
-            <div><div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Risk Score</div><div id="r-risk">—</div></div>
-            <div><div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">Threats Found</div><div id="r-threatcount">—</div></div>
+            <div>
+              <div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">
+                Full URL</div>
+              <div id="r-url" style="word-break:break-all">—</div>
+            </div>
+            <div>
+              <div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">
+                Scanned</div>
+              <div id="r-time">—</div>
+            </div>
+            <div>
+              <div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">
+                Risk Score</div>
+              <div id="r-risk">—</div>
+            </div>
+            <div>
+              <div class="k" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)">
+                Threats Found</div>
+              <div id="r-threatcount">—</div>
+            </div>
           </div>
         </div>
 
@@ -64,7 +85,9 @@
             </div>
           </div>
           <div class="panel">
-            <div class="panel-head"><h3>Detected Threats</h3></div>
+            <div class="panel-head">
+              <h3>Detected Threats</h3>
+            </div>
             <div id="threat-list"></div>
           </div>
         </div>
@@ -72,15 +95,30 @@
         <!-- Intel tab -->
         <div class="tab-panel" id="tab-intel">
           <div class="grid grid-2">
-            <div class="panel"><div class="panel-head"><h3>Domain Intel</h3></div><div id="intel-list"></div></div>
-            <div class="panel"><div class="panel-head"><h3>Reputation</h3></div><div id="rep-list"></div></div>
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Domain Intel</h3>
+              </div>
+              <div id="intel-list"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head">
+                <h3>Reputation</h3>
+              </div>
+              <div id="rep-list"></div>
+            </div>
           </div>
         </div>
 
         <!-- Sandbox tab -->
         <div class="tab-panel" id="tab-sandbox">
           <div class="grid grid-4 mb-6" id="sandbox-stats"></div>
-          <div class="panel"><div class="panel-head"><h3>Behaviour Summary</h3></div><div id="sandbox-notes" style="padding:22px"></div></div>
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Behaviour Summary</h3>
+            </div>
+            <div id="sandbox-notes" style="padding:22px"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -136,28 +174,50 @@
     // threats
     document.getElementById("threat-list").innerHTML = report.detected.length
       ? report.detected
-          .map((t) => `<div class="alert-row"><span class="dot dot-danger"></span><span class="url">${t}</span><span class="time">detected</span></div>`)
-          .join("")
+        .map((t) => `<div class="alert-row"><span class="dot dot-danger"></span><span class="url">${t}</span><span class="time">detected</span></div>`)
+        .join("")
       : '<div class="alert-row"><span class="dot dot-ok"></span><span class="url">No threats detected</span></div>';
 
     // intel
     const i = report.intel;
     document.getElementById("intel-list").innerHTML = `
-      ${row("Registrar", i.registrar)}
-      ${row("Domain age", i.created)}
-      ${row("Hosting country", i.country)}
-      ${row("SSL certificate", i.ssl)}
-      ${row("IP address", i.ip)}
-      ${row("ASN", i.asn)}`;
+  ${row("Domain name", i.domain)}
+  ${row("Domain age", i.age)}
+  ${row("Confidence score", i.confidence)}
+  ${row("IP address", i.ip)}
+  ${row("Threat count", i.threat)}
+  ${row("Expiration duration", i.expiration)}`;
+
     document.getElementById("rep-list").innerHTML = `
-      ${row("Reputation", i.reputation)}
-      ${row("Blacklist hits", i.blacklists)}
-      ${row("Verdict", report.verdict)}
-      ${row("Risk score", report.riskScore + "/100")}`;
+  ${row("Brand Similarity", i.brandSimilarity)}
+  ${row("Fake Characters", i.fakeCharacters)}
+  ${row("URL Shortener Used", i.urlShortener)}
+  ${row("Host Reputation", i.reputation)}`;
 
     function row(k, v) {
       return `<div class="alert-row"><span class="muted">${k}</span><span class="time" style="color:var(--text)">${v}</span></div>`;
     }
+    function row(k, v) {
+  const safeValues = ["Safe", "No", "Not Detected"];
+  const dangerValues = ["Unsafe", "Yes", "Detected"];
+
+  let value;
+
+  if (safeValues.includes(v)) {
+    value = `<span class="status-pill status-safe">${v}</span>`;
+  } else if (dangerValues.includes(v)) {
+    value = `<span class="status-pill status-danger">${v}</span>`;
+  } else {
+    value = `<span class="time" style="color:var(--text)">${v}</span>`;
+  }
+
+  return `
+    <div class="alert-row">
+      <span class="muted">${k}</span>
+      ${value}
+    </div>
+  `;
+}
 
     // sandbox
     const s = report.sandbox;
@@ -188,4 +248,5 @@
     }
   </script>
 </body>
+
 </html>
